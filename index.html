@@ -2,81 +2,45 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>🎰 Slot Machine</title>
+  <title>Simple Slot Game</title>
   <style>
-    body {
-      background: #222;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 30px;
-    }
-    h1 {
-      margin-bottom: 20px;
-    }
-    #slot {
-      display: flex;
-      justify-content: center;
-      margin: 20px;
-    }
-    .reel {
-      font-size: 50px;
-      background: #333;
-      border-radius: 10px;
-      width: 100px;
-      height: 100px;
-      line-height: 100px;
-      margin: 5px;
-      box-shadow: 0 0 10px #000;
-    }
-    button {
-      font-size: 18px;
-      padding: 10px 20px;
-      border-radius: 8px;
-      border: none;
-      background: #ff9800;
-      color: white;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #e68900;
-    }
-    #result {
-      margin-top: 20px;
-      font-size: 24px;
-    }
+    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+    .reels { font-size: 3em; margin-bottom: 20px; }
+    #result { font-size: 1.2em; margin-top: 15px; }
+    button { font-size: 1.2em; padding: 10px 30px; }
   </style>
 </head>
 <body>
-  <h1>🎰 Slot Machine</h1>
-  <div id="slot">
-    <div class="reel" id="r1">🍒</div>
-    <div class="reel" id="r2">🍋</div>
-    <div class="reel" id="r3">🍇</div>
-  </div>
-  <button onclick="spin()">SPIN 🎲</button>
+  <h1>Slot Game 🎰</h1>
+  <div class="reels" id="reels">❓ ❓ ❓</div>
+  <button onclick="spin()">Spin</button>
   <div id="result"></div>
-
   <script>
-    const symbols = ["🍒", "🍋", "🍇", "🍊", "⭐", "7️⃣"];
+    const symbols = ['🍒', '🍋', '🍉', '🍇', '🔔', '⭐', '💎', '7️⃣', '🃏'];
+    const jackpotSymbol = '🃏';
 
     function spin() {
-      const r1 = symbols[Math.floor(Math.random() * symbols.length)];
-      const r2 = symbols[Math.floor(Math.random() * symbols.length)];
-      const r3 = symbols[Math.floor(Math.random() * symbols.length)];
+      const reels = [
+        symbols[Math.floor(Math.random() * symbols.length)],
+        symbols[Math.floor(Math.random() * symbols.length)],
+        symbols[Math.floor(Math.random() * symbols.length)]
+      ];
 
-      document.getElementById("r1").innerText = r1;
-      document.getElementById("r2").innerText = r2;
-      document.getElementById("r3").innerText = r3;
+      document.getElementById('reels').textContent = reels.join(' ');
 
-      let result = document.getElementById("result");
-      if (r1 === r2 && r2 === r3) {
-        result.innerText = "🎉 JACKPOT! You Win!";
-      } else if (r1 === r2 || r2 === r3 || r1 === r3) {
-        result.innerText = "😃 Nice! You got a pair!";
+      // Check for results
+      let result = '';
+      if (reels.every(sym => sym === jackpotSymbol)) {
+        result = '🎉 JACKPOT!!! You win the grand prize! 🎉';
+      } else if (reels[0] === reels[1] && reels[1] === reels[2]) {
+        result = `✨ Triple ${reels[0]}! You win!`;
+      } else if (reels[0] === reels[1] || reels[1] === reels[2] || reels[0] === reels[2]) {
+        result = `😊 Double match! Try for the jackpot!`;
       } else {
-        result.innerText = "😢 Try again!";
+        result = '😢 No match, try again!';
       }
+
+      document.getElementById('result').textContent = result;
     }
   </script>
 </body>
