@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🎰 Slot Machine</title>
+  <style>
+    body {
+      background: #222;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 30px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    #slot {
+      display: flex;
+      justify-content: center;
+      margin: 20px;
+    }
+    .reel {
+      font-size: 50px;
+      background: #333;
+      border-radius: 10px;
+      width: 100px;
+      height: 100px;
+      line-height: 100px;
+      margin: 5px;
+      box-shadow: 0 0 10px #000;
+    }
+    button {
+      font-size: 18px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      background: #ff9800;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #e68900;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎰 Slot Machine</h1>
+  <div id="slot">
+    <div class="reel" id="r1">🍒</div>
+    <div class="reel" id="r2">🍋</div>
+    <div class="reel" id="r3">🍇</div>
+  </div>
+  <button onclick="spin()">SPIN 🎲</button>
+  <div id="result"></div>
+
+  <script>
+    const symbols = ["🍒", "🍋", "🍇", "🍊", "⭐", "7️⃣"];
+
+    function spin() {
+      const r1 = symbols[Math.floor(Math.random() * symbols.length)];
+      const r2 = symbols[Math.floor(Math.random() * symbols.length)];
+      const r3 = symbols[Math.floor(Math.random() * symbols.length)];
+
+      document.getElementById("r1").innerText = r1;
+      document.getElementById("r2").innerText = r2;
+      document.getElementById("r3").innerText = r3;
+
+      let result = document.getElementById("result");
+      if (r1 === r2 && r2 === r3) {
+        result.innerText = "🎉 JACKPOT! You Win!";
+      } else if (r1 === r2 || r2 === r3 || r1 === r3) {
+        result.innerText = "😃 Nice! You got a pair!";
+      } else {
+        result.innerText = "😢 Try again!";
+      }
+    }
+  </script>
+</body>
+</html>
